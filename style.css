@@ -1,57 +1,126 @@
+* {
+  box-sizing: border-box;
+}
+
+/* LIGHT MODE DEFAULT */
 body {
-  font-family: Arial, sans-serif;
-  margin: 20px;
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  background: #f4f6f8;
+  color: black;
+  min-height: 100vh;
+  padding: 20px;
+  transition: all 0.3s ease;
 }
 
-input {
-  padding: 8px;
-  width: 200px;
+/* DARK MODE */
+.dark {
+  background: linear-gradient(135deg, #0f172a, #020617);
+  color: white;
 }
 
-button {
-  padding: 8px 12px;
-  cursor: pointer;
+/* Title */
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
 }
 
-#booksContainer {
+/* Controls */
+.controls {
   display: flex;
   flex-wrap: wrap;
-  gap: 15px;
-  margin-top: 20px;
+  justify-content: center;
 }
 
+input, select, button {
+  padding: 10px 12px;
+  margin: 5px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+}
+
+/* Input */
+input {
+  width: 220px;
+  background: #fff;
+}
+
+/* Select */
+select {
+  background: #fff;
+}
+
+/* Buttons */
+button {
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: white;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+/* Container */
+#booksContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  margin-top: 30px;
+}
+
+/* Cards */
 .book-card {
-  border: 1px solid #ccc;
-  padding: 15px;
-  width: 300px;
-  border-radius: 8px;
+  background: white;
+  border-radius: 16px;
+  padding: 20px;
+  transition: 0.3s ease;
+  border: 1px solid #ddd;
 }
 
+.book-card:hover {
+  transform: translateY(-5px);
+}
+
+/* DARK MODE CARDS */
+.dark .book-card {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+/* Text */
 .book-card h3 {
   margin-bottom: 10px;
 }
 
 .book-card p {
-  margin: 5px 0;
+  font-size: 14px;
 }
 
+/* Link */
 .book-card a {
   display: inline-block;
   margin-top: 10px;
-  color: blue;
+  color: #6366f1;
+  text-decoration: none;
 }
 
+/* Loading */
+#loading {
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* Mobile */
 @media (max-width: 600px) {
-  #booksContainer {
-    flex-direction: column;
-  }
-
-  .book-card {
-    width: 100%;
-  }
-
   input {
     width: 100%;
-    margin-bottom: 10px;
+  }
+
+  .controls {
+    flex-direction: column;
+    align-items: center;
   }
 }
