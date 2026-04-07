@@ -1,3 +1,7 @@
+"use strict";
+
+let currentBooks = [];
+
 async function searchBooks() {
   const query = document.getElementById("searchInput").value;
   const container = document.getElementById("booksContainer");
@@ -10,24 +14,27 @@ async function searchBooks() {
     const res = await fetch(`https://gutendex.com/books?search=${query}`);
     const data = await res.json();
 
-    displayBooks(data.results);
+    currentBooks = data.results;
+    displayBooks(currentBooks);
+
   } catch (error) {
-    container.innerHTML = "<p>Something went wrong 😢</p>";
+    container.innerHTML = "<p>Error fetching data</p>";
   } finally {
     loading.style.display = "none";
   }
 }
+
 function displayBooks(books) {
   const container = document.getElementById("booksContainer");
+  container.innerHTML = "";
 
   if (books.length === 0) {
     container.innerHTML = "<p>No books found</p>";
     return;
   }
 
-  books.forEach(book => {
+  books.map(book => {
     const div = document.createElement("div");
-
     div.classList.add("book-card");
 
     div.innerHTML = `
@@ -39,4 +46,30 @@ function displayBooks(books) {
 
     container.appendChild(div);
   });
+}
+
+/* SORT */
+function sortBooks() {
+  const value = document.getElementById("sortSelect").value;
+
+  let sorted = [...currentBooks];
+
+  if (value === "asc") {
+    sorted.sort((a, b) => a.download_count - b.download_count);
+  } else if (value === "desc") {
+    sorted.sort((a, b) => b.download_count - a.download_count);
+  }
+
+  displayBooks(sorted);
+}
+
+/* FILTER */
+function filterPopular() {
+  const filtered = currentBooks.filter(book => book.download_count > 10000);
+  displayBooks(filtered);
+}
+
+/* DARK MODE */
+function toggleDarkMode() {
+  document.body.classList.toggle("dark");
 }
